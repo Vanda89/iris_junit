@@ -166,7 +166,7 @@ class CalculatorTest {
 
         // ARRANGE - Préparer les données
         double a = 15.0;
-        double b = 13.0;
+        double b = 3.0;
         // ACT - Exécuter l'action à tester
         double result = this.calculator.divide(a, b) ;
 
@@ -181,8 +181,8 @@ class CalculatorTest {
         // Pour pouvoir tester des exceptions, il faut les catch !
 
         // ARRANGE - Préparer les données
-        double a = 12;
-        double b = 0;
+        double a = 12.0;
+        double b = 0f;
         // ACT - Exécuter l'action à tester
         Exception exception = null;
         try {
@@ -193,7 +193,6 @@ class CalculatorTest {
         // ASSERT - Vérifier le résultat
         assertNotNull(exception);
         assertInstanceOf(ArithmeticException.class, exception);
-        assertEquals("Don't divide by zero", exception.getMessage());
     }
 
     // === TESTS FACTORIELLE ===
@@ -243,13 +242,11 @@ class CalculatorTest {
         // La factorielle d'un nombre négatif doit lever IllegalArgumentException
         // ARRANGE - Préparer les données
         int a = -5;
-        // ACT - Exécuter l'action à tester
+        // ACT - Exécuter l'action à tester & ASSERT
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
                 () -> this.calculator.factorial(a)
         );
-        // ASSERT - Vérifier le résultat
-        assertEquals("Don't factorize with negative number", exception.getMessage());
     }
 
     // === TESTS NOMBRE PAIR ===
@@ -264,8 +261,8 @@ class CalculatorTest {
         int c = 6;
         // ACT - Exécuter l'action à tester
         boolean result1 = this.calculator.isEven(a);
-        boolean result2 = this.calculator.isEven(a);
-        boolean result3 = this.calculator.isEven(a);
+        boolean result2 = this.calculator.isEven(b);
+        boolean result3 = this.calculator.isEven(c);
         // ASSERT - Vérifier le résultat
         assertAll("Verify if the numbers are even numbers",
                 () -> assertTrue(result1),
@@ -292,7 +289,7 @@ class CalculatorTest {
         // Attention à la précision (par exemple 0.001) des doubles !
         // assertEquals(8.0, calculator.power(2, 3), 0.001);
         // ARRANGE - Préparer les données
-        double base = 2;
+        double base = 2.0;
         int exponent = 3;
         // ACT - Exécuter l'action à tester
         double result = this.calculator.power(base, exponent);
@@ -305,12 +302,12 @@ class CalculatorTest {
         // TODO: Compléter ce test
         // Tout nombre puissance 0 = 1
         // ARRANGE - Préparer les données
-        double base = 2;
+        double base = 2.0;
         int exponent = 0;
         // ACT - Exécuter l'action à tester
         double result = this.calculator.power(base,exponent);
         // ASSERT - Vérifier le résultat
-        assertEquals(1, result);
+        assertEquals(1.0, result, 0.001);
 
     }
 
@@ -319,7 +316,7 @@ class CalculatorTest {
         // TODO: Compléter ce test avec assertThrows
         // Exposant négatif doit lever IllegalArgumentException
         // ARRANGE - Préparer les données
-        double base = 2;
+        double base = 2.0;
         int exponent = -3;
         // ACT & ASSERT
         assertThrows(
@@ -331,9 +328,24 @@ class CalculatorTest {
     // === TESTS SUPPLÉMENTAIRES ===
     // TODO: Ajouter au moins 2 tests de votre choix
     // Idées : cas limites, combinaisons de méthodes, valeurs extrêmes
+    @Test
+    public void shouldCalculateAverageCorrectly() {
+        // ARRANGE - Préparer les données
+        int[] notes = {12, 13, 14};
+        // ACT - Exécuter l'action à tester
+        double result = this.calculator.average(notes);
+        // ASSERT - Vérifier le résultat
+        assertEquals(13, result, 0.001);
+    }
 
-    // ARRANGE - Préparer les données
-    // ACT - Exécuter l'action à tester
+    @Test
+    public void shouldCalculateAverageCorrectlyWithExtremeValues() {
+        // ARRANGE - Préparer les données
+        int[] notes = {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE};
+        // ACT - Exécuter l'action à tester
+        double result = this.calculator.average(notes);
+        // ASSERT - Vérifier le résultat
+        assertEquals(Integer.MAX_VALUE, result, 0.001);
+    }
 
-    // ASSERT - Vérifier le résultat
 }

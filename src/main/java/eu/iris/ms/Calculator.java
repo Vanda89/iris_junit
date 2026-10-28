@@ -41,7 +41,11 @@ public class Calculator {
      * @throws ArithmeticException si le diviseur est zéro
      */
     public double divide(double a, double b) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (b == 0) {
+            throw new ArithmeticException();
+        }
+
+        return a / b;
     }
 
     /**
@@ -49,14 +53,21 @@ public class Calculator {
      * @throws IllegalArgumentException si n est négatif
      */
     public int factorial(int n) throws IllegalArgumentException {
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (n < 0) {
+            throw new IllegalArgumentException();
+        }
+        int result = 1;
+        for (int i = 1; i <= n; i++) {
+            result = result * i;
+        }
+        return result;
     }
 
     /**
      * Vérifie si un nombre est pair
      */
     public boolean isEven(int number) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return number % 2 == 0;
     }
 
     /**
@@ -64,10 +75,29 @@ public class Calculator {
      * @throws IllegalArgumentException si l'exposant est négatif
      */
     public double power(double base, int exponent) throws IllegalArgumentException {
-            throw new UnsupportedOperationException("Not implemented yet");
-  //      int res = 1;
-//        for (int i =0; i < N; i++ {
-//                res *= i;
-//        }
+        double result = 1;
+
+        if (exponent < 0) {
+            throw new IllegalArgumentException();
+        }
+
+        for (int i = 1; i <= exponent ; i++) {
+            result = result * base;
+        }
+        return result;
     }
+
+    public double average(int [] notes) throws ArithmeticException {
+
+        double result = 0;
+
+        for (int note : notes) {
+            result += note;
+        }
+
+        return result / notes.length;
+    }
+
+
+
 }
